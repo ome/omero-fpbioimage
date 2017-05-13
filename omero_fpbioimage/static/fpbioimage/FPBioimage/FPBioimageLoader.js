@@ -13,9 +13,10 @@ function nextPow2( aSize ){
   return Math.pow( 2, Math.ceil( Math.log( aSize ) / Math.log( 2 ) ) );
 }
 
-console.log('pathToImages', pathToImages, 'imagePrefix', imagePrefix)
-firstImage = pathToImages + "/" + imagePrefix + numberingFormat + ".png";
+// Since pathToFPBioimage is /static/fpbioimage/FPBioimage we can't use
+// that as the base of pathToImages
 // firstImage = pathToFPBioimage + "/../" + pathToImages + "/" + imagePrefix + numberingFormat + ".png";
+firstImage = pathToImages + "/" + imagePrefix + numberingFormat + ".png";
 
 var img = new Image();
 
