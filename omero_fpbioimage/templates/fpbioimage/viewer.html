@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>First Person Bioimage Example - Hydrogenic Wavefunction</title>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <!-- EDIT THIS JAVASCRIPT! -->
+  <script type='text/javascript'>
+    pathToImages = "imageStacks/wavefunction"; // This is the path relative to the FPBioimage parent folder
+    uniqueName = "wavefunction"; // Give this image stack a unique name for bookmarking to work correctly
+    numberOfImages = 128;  // Number of images in the stack
+    imagePrefix = "psi_";  // The prefix of the image stack file names
+    numberingFormat = "000";  // eg. "000" for 000, 001, 002, 003 etc.
+    voxelSize = [1,1,1]; // This needs to be a ratio of x:y:z voxel size.
+
+    pathToFPBioimage = "../FPBioimage"; // The path to the FPBioimage folder from this webpage
+
+    // optional parameters
+    intensity = 1;
+  </script>
+  <!-- END OF REQUIRED EDITS -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../resources/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <style>
+  html,body,h1,h2,h3,h4,h5 {font-family: "Lato", sans-serif}
+  .mySlides {display:none}
+  .w3-left, .w3-right, .w3-tag {cursor:pointer}
+  .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+  </style>
+</head>
+<body>
+
+<!-- Heading -->
+<div class = "w3-top w3-center w3-large w3-teal" style="height:80px">
+<h1>First Person Bioimage: Template</h1>
+</div>
+
+<!-- Navbar -->
+<div class = "w3-top" style="margin-top:80px">
+  <ul class="w3-navbar w3-left-align w3-light-grey w3-center w3-large">
+    <li class="w3-left" style="width:25%"><a href="../index.html">Home</a></li>
+    <li class="w3-dropdown-hover" style="width:25%">
+      <a href="index.html" title="Examples" class="w3-text-teal">Examples</a>
+      <div class="w3-dropdown-content w3-white w3-card-4" style="width:25%">
+        <a href="wavefunction.html">Wavefunction</a>
+      </div>
+    </li>
+    <li class="w3-left" style="width:25%"><a href="../about.html">About</a></li>
+    <li class="w3-left" style="width:25%"><a href="http://fpb.ceb.cam.ac.uk">Project Page</a></li>
+  </ul>
+</div>
+
+<!-- Progress bar -->
+<div id="scriptProgress"> </div>
+<script type="text/javascript">
+var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.src = pathToFPBioimage + "/Progress.js";
+    s.innerHTML = null;
+    document.getElementById("scriptProgress").innerHTML = "";
+    document.getElementById("scriptProgress").appendChild(s);
+</script>
+
+<!-- Rest of the website -->
+<div class="w3-content w3-container w3-center" style="max-width:99x;margin-top:140px;margin-bottom:80px">
+  <!-- Title -->
+  <div class="w3-section">
+    <h2><b>Hydrogenic Wavefunction: 2p-orbital</b></h2>
+  </div>
+
+  <!-- Put the WebGL Canvas in here-->
+  <div class = "w3-container w3-center w3-padding-0" style="width:100%; max-width:960px; height:600px;">
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" style="height:100%; width:100%"></canvas>
+  </div>
+
+  <!-- Full screen button -->
+  <div class="w3-container w3-center" style="padding:0px">
+    <table><tr>
+      <td style="vertical-align:middle; text-align:left"><h4>Images generated in Matlab. </h4></td>
+      <td style="vertical-align:middle; text-align:right"><img src="../resources/fullscreen.png" height="40px" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></td>
+    </tr></table>
+  </div>
+
+  <!-- Grid -->
+  <div class="w3-row">
+    <div class="w3-col l6 m6 w3-light-grey w3-padding-large" style="min-height:200px">
+      <h3>About the Images</h3>
+      <p> 3D 2p-orbital wavefunction. </p>
+    </div>
+
+    <div class="w3-col l6 m6 w3-grey w3-padding-large" style="min-height:200px">
+      <h3>First Person Controls</h3>
+      <div style="text-align:left; margin-left:12.5%; width:75%">
+        <table>
+          <tr> <td> <b> WASD </b> </td> <td style="width:40px; text-align:center"> &mdash; </td> <td> Move </td> </tr>
+          <tr> <td> <b> F </b> </td> <td style="width:40px; text-align:center"> &mdash; </td> <td> Un/freeze mouse movement </td> </tr>
+          <tr> <td> <b> H </b> </td> <td style="width:40px; text-align:center"> &mdash; </td> <td> Hide/show grid </td> </tr>
+          <tr style="height:10px"> <td colspan="3" style="padding:0px; margin:0px"> </td> </tr>
+          <tr> <td colspan="3" style="text-align:center; font-style:italic"> Press M for a full list of controls</td> </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-hor-32 w3-white w3-center">
+  <p> <a href="http://laser.ceb.cam.ac.uk/directory/marcus-fantham" class="w3-text-teal">&copy; Marcus Fantham </a></p>
+  <img src="../resources/LAGlogo.png" width="65%" alt="Laser Analytics Group"><img src="../resources/cambridgeLogo.png" width="25%" alt="University of Cambridge">
+</footer>
+</div>
+
+
+<!-- Load the FPBioimage viewer -->
+<div id="scriptLoader"> </div>
+<script src="../FPBioimage/FPBioimageLoader.js"></script>
+
+</body>
+</html>
