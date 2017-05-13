@@ -13,7 +13,9 @@ function nextPow2( aSize ){
   return Math.pow( 2, Math.ceil( Math.log( aSize ) / Math.log( 2 ) ) );
 }
 
-firstImage = pathToFPBioimage + "/../" + pathToImages + "/" + imagePrefix + numberingFormat + ".png";
+console.log('pathToImages', pathToImages, 'imagePrefix', imagePrefix)
+firstImage = pathToImages + "/" + imagePrefix + numberingFormat + ".png";
+// firstImage = pathToFPBioimage + "/../" + pathToImages + "/" + imagePrefix + numberingFormat + ".png";
 
 var img = new Image();
 

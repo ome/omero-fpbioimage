@@ -7,14 +7,14 @@
 
   <!-- EDIT THIS JAVASCRIPT! -->
   <script type='text/javascript'>
-    pathToImages = "imageStacks/wavefunction"; // This is the path relative to the FPBioimage parent folder
-    uniqueName = "wavefunction"; // Give this image stack a unique name for bookmarking to work correctly
-    numberOfImages = 128;  // Number of images in the stack
-    imagePrefix = "psi_";  // The prefix of the image stack file names
+    pathToImages = "{% url 'fpbioimage_index' %}imageStacks/{{ image.id }}"; // This is the path relative to the FPBioimage parent folder
+    uniqueName = "fpbioimage_{{ image.id }}"; // Give this image stack a unique name for bookmarking to work correctly
+    numberOfImages = {{ image.getSizeZ }};  // Number of images in the stack
+    imagePrefix = "";  // The prefix of the image stack file names
     numberingFormat = "000";  // eg. "000" for 000, 001, 002, 003 etc.
     voxelSize = [1,1,1]; // This needs to be a ratio of x:y:z voxel size.
 
-    pathToFPBioimage = "../FPBioimage"; // The path to the FPBioimage folder from this webpage
+    pathToFPBioimage = "{% static 'fpbioimage/FPBioimage' %}"; // The path to the FPBioimage folder from this webpage
 
     // optional parameters
     intensity = 1;
@@ -22,7 +22,7 @@
   <!-- END OF REQUIRED EDITS -->
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../resources/w3.css">
+  <link rel="stylesheet" href="{% static 'fpbioimage/FPBioimage/resources/w3.css' %}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
   <style>
   html,body,h1,h2,h3,h4,h5 {font-family: "Lato", sans-serif}
@@ -80,7 +80,7 @@ var s = document.createElement("script");
   <div class="w3-container w3-center" style="padding:0px">
     <table><tr>
       <td style="vertical-align:middle; text-align:left"><h4>Images generated in Matlab. </h4></td>
-      <td style="vertical-align:middle; text-align:right"><img src="../resources/fullscreen.png" height="40px" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></td>
+      <td style="vertical-align:middle; text-align:right"><img src="{% static 'fpbioimage/FPBioimage/resources/fullscreen.png' %}" height="40px" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></td>
     </tr></table>
   </div>
 
@@ -108,14 +108,14 @@ var s = document.createElement("script");
 <!-- Footer -->
 <footer class="w3-container w3-padding-hor-32 w3-white w3-center">
   <p> <a href="http://laser.ceb.cam.ac.uk/directory/marcus-fantham" class="w3-text-teal">&copy; Marcus Fantham </a></p>
-  <img src="../resources/LAGlogo.png" width="65%" alt="Laser Analytics Group"><img src="../resources/cambridgeLogo.png" width="25%" alt="University of Cambridge">
+  <img src="{% static 'fpbioimage/FPBioimage/resources/LAGlogo.png' %}" width="65%" alt="Laser Analytics Group"><img src="{% static 'fpbioimage/FPBioimage/resources/cambridgeLogo.png' %}" width="25%" alt="University of Cambridge">
 </footer>
 </div>
 
 
 <!-- Load the FPBioimage viewer -->
 <div id="scriptLoader"> </div>
-<script src="../FPBioimage/FPBioimageLoader.js"></script>
+<script src="{% static 'fpbioimage/FPBioimage/FPBioimageLoader.js' %}"></script>
 
 </body>
 </html>
