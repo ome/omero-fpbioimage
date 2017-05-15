@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-#
 #
 # Copyright (c) 2017 University of Dundee.
 #
@@ -18,11 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Version: 1.0
-#
-from django.apps import AppConfig
+
+from utils import get_version
 
 
-class FPBioimageAppConfig(AppConfig):
-    name = "omero_fpbioimage"
-    label = "fpbioimage"
+VERSION = (0, 0, 1)
+
+
+__version__ = get_version(VERSION)

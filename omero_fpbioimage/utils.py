@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-#
 #
 # Copyright (c) 2017 University of Dundee.
 #
@@ -18,11 +14,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Version: 1.0
-#
-from django.apps import AppConfig
 
 
-class FPBioimageAppConfig(AppConfig):
-    name = "omero_fpbioimage"
-    label = "fpbioimage"
+def get_version(version=None):
+
+    """
+    Returns a PEP 386-compliant version number.
+    See https://www.python.org/dev/peps/pep-0440/
+    """
+
+    version = get_full_version(version)
+    parts = 2 if version[2] == 0 else 3
+    res = '.'.join(str(x) for x in version[:parts])
+    if len(version) > 3:
+        res = "%s%s" % (res, version[3])
+    return str(res)
+
+
+def get_full_version(value=None):
+
+    """
+    Returns a tuple of the version.
+    """
+
+    if value is None:
+        from version import VERSION as value  # noqa
+    return value
