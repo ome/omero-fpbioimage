@@ -38,7 +38,7 @@ version = get_version()
 
 setup(name="omero-fpbioimage",
       packages=find_packages(exclude=['ez_setup']),
-      version=VERSION,
+      version=version,
       description="A Python plugin for OMERO.web",
       long_description=read('README.rst'),
       classifiers=[
@@ -64,7 +64,7 @@ setup(name="omero-fpbioimage",
       author_email='ome-devel@lists.openmicroscopy.org.uk',
       license='AGPL-3.0',
       url="https://github.com/ome/omero-fpbioimage",
-      download_url='https://github.com/ome/omero-fpbioimage/tarball/%s' % VERSION,  # NOQA
+      download_url='https://github.com/ome/omero-fpbioimage/tarball/%s' % version,  # NOQA
       keywords=['OMERO.web', 'plugin'],
       include_package_data=True,
       zip_safe=False,
