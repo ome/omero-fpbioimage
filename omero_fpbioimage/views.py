@@ -13,18 +13,18 @@ def index(request):
 
 
 @login_required()
-def fpbioimage(request, iid, conn=None, **kwargs):
+def fpbioimage(request, image_id, conn=None, **kwargs):
     """Load the viewer page for the image."""
-    image = conn.getObject('image', iid)
+    image = conn.getObject('image', image_id)
     context = {'image': image}
 
     return render(request, 'fpbioimage/viewer.html', context)
 
 
 @login_required()
-def fpbioimage_png(request, iid, the_z, conn=None, **kwargs):
+def fpbioimage_png(request, image_id, the_z, conn=None, **kwargs):
     """Render png for image at specified Z section."""
-    image = conn.getObject('image', iid)
+    image = conn.getObject('image', image_id)
     jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
 
     i = Image.open(StringIO(jpeg_data))
