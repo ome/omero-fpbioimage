@@ -50,7 +50,7 @@ def fpbioimage_png(request, image_id, the_z, conn=None, **kwargs):
     image = conn.getObject('image', image_id)
     jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
     width = max(image.getSizeX, image.getSizeY)
-    if max > 500:
+    if width > 500:
         width = 500
     i = Image.open(StringIO(jpeg_data))
     p = (width/float(i.size[0]))
