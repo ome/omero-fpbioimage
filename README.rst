@@ -31,6 +31,14 @@ Add fpbioimage custom app to your installed web apps:
 
     $ bin/omero config append omero.web.apps '"omero_fpbioimage"'
 
+Optionally add fpbioimage to the 'Open with' config, to enable
+open-with menu for Images in OMERO.webclient:
+
+::
+
+    $ bin/omero config append omero.web.open_with '["omero_fpbioimage", "fpbioimage_index",
+      {"script_url": "fpbioimage/openwith.js", "supported_objects": ["image"], "label": "FPBioimage"}]'
+
 Now restart OMERO.web as normal.
 
 
