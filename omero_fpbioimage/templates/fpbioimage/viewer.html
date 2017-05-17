@@ -12,7 +12,7 @@
     numberOfImages = {{ image.getSizeZ }};  // Number of images in the stack
     imagePrefix = "";  // The prefix of the image stack file names
     numberingFormat = "000";  // eg. "000" for 000, 001, 002, 003 etc.
-    voxelSize = [1,1,1]; // This needs to be a ratio of x:y:z voxel size.
+    voxelSize = [{{ size_x }}, {{ size_y }}, {{ size_z }}]; // This needs to be a ratio of x:y:z voxel size.
 
     pathToFPBioimage = "{% static 'fpbioimage/FPBioimage' %}"; // The path to the FPBioimage folder from this webpage
 
