@@ -49,13 +49,28 @@ def fpbioimage_png(request, image_id, the_z, conn=None, **kwargs):
     """Render png for image at specified Z section."""
     image = conn.getObject('image', image_id)
     jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
-    width = max(image.getSizeX(), image.getSizeY())
-    if width > 500:
-        width = 500
     i = Image.open(StringIO(jpeg_data))
-    p = (width/float(i.size[0]))
-    hsize = int((float(i.size[1])*float(p)))
-    i = i.resize((width, hsize), PIL.Image.ANTIALIAS)
+    size_x = image.getSizeX()
+    size_y = image.getSizeY()
+    def_w = 500
+    def_h = 500
+    width = def_w
+    height = def_h
+    resize = False
+
+    if size_x > def_w:
+        width = def_w
+        resize = True
+    if size_y > def_h:
+        height = def_h
+        resize = True
+    if resize:
+        r = float(size_x)/float(size_y)
+        if r < 1:
+            width = int(width*r)
+        else:
+            height = int(height/r)
+        i = i.resize((width, height), PIL.Image.ANTIALIAS)
     output = StringIO()
     i.save(output, 'png')
     png_data = output.getvalue()
