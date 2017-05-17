@@ -22,17 +22,17 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
     y = 1
     z = 1
 
-    if (px is not None):
+    if px is not None:
         size = image.getPixelSizeX(True)
         x = size.getValue()
 
     py = image.getPrimaryPixels().getPhysicalSizeY()
-    if (py is not None):
-        size = image.getPixelSizeZ(True)
+    if py is not None:
+        size = image.getPixelSizeY(True)
         y = size.getValue()
 
     pz = image.getPrimaryPixels().getPhysicalSizeZ()
-    if (pz is not None):
+    if pz is not None:
         size = image.getPixelSizeZ(True)
         z = size.getValue()
 
@@ -49,7 +49,7 @@ def fpbioimage_png(request, image_id, the_z, conn=None, **kwargs):
     """Render png for image at specified Z section."""
     image = conn.getObject('image', image_id)
     jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
-    width = max(image.getSizeX, image.getSizeY)
+    width = max(image.getSizeX(), image.getSizeY())
     if width > 500:
         width = 500
     i = Image.open(StringIO(jpeg_data))
