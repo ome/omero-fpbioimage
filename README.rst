@@ -4,10 +4,11 @@
 .. image:: https://badge.fury.io/py/omero-fpbioimage.svg
     :target: https://badge.fury.io/py/omero-fpbioimage
 
-OMERO FPBioimage
+OMERO.FPBioimage
 ================
 
-FPBioImage as an OMERO.web app.
+`FPBioimage <http://fpb.ceb.cam.ac.uk/>`_ is a volumetric visualization tool.
+FPBioimage as an OMERO.web app.
 
 Requirements
 ============
