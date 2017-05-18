@@ -8,10 +8,10 @@ python: 2.7
 sudo: false
 
 before_install:
- - pip install --user restructuredtext_lint
- - pip install --user flake8 pycodestyle pep8-naming
+ - pip install restructuredtext_lint
+ - pip install flake8 pycodestyle pep8-naming
  - flake8 -v .
  - rst-lint README.rst
 
 script:
- - python setup.py sdist install --user || exit 1
+ - python setup.py sdist install || exit 1
