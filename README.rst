@@ -4,10 +4,11 @@
 .. image:: https://badge.fury.io/py/omero-fpbioimage.svg
     :target: https://badge.fury.io/py/omero-fpbioimage
 
-OMERO FPBioimage
+OMERO.FPBioimage
 ================
 
-FPBioImage as an OMERO.web app.
+`FPBioimage <http://fpb.ceb.cam.ac.uk/>`_ is a volumetric visualization tool.
+FPBioimage as an OMERO.web app.
 
 Requirements
 ============
@@ -45,7 +46,8 @@ Now restart OMERO.web as normal.
 License
 -------
 
-TODO.
+This application is released under `Creative Commons Attribution, ShareAlike 4.0 International license <https://creativecommons.org/licenses/by-sa/4.0/>`_. FPBioimage was originally published in `Nature
+Photonics <https://www.nature.com/nphoton/journal/v11/n2/full/nphoton.2016.273.html>`_
 
 Copyright
 ---------
