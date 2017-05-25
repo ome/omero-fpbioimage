@@ -22,7 +22,7 @@
   <!-- END OF REQUIRED EDITS -->
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'fpbioimage/FPBioimage/resources/w3.css' %}">
+  <link rel="stylesheet" href="{% static 'fpbioimage/resources/w3.css' %}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
   <style>
   html,body,h1,h2,h3,h4,h5 {font-family: "Lato", sans-serif}
@@ -40,14 +40,15 @@
 
 
 <!-- Progress bar -->
-<div id="scriptProgress"> </div>
+
+<div id="jsHolder"></div>
 <script type="text/javascript">
-var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = pathToFPBioimage + "/Progress.js";
-    s.innerHTML = null;
-    document.getElementById("scriptProgress").innerHTML = "";
-    document.getElementById("scriptProgress").appendChild(s);
+    var s1 = document.createElement("script");
+    s1.type = "text/javascript";
+    s1.src = pathToFPBioimage + "/FPProgress.js";
+    s1.innerHTML = null;
+    document.getElementById("jsHolder").innerHTML = "";
+    document.getElementById("jsHolder").appendChild(s1);
 </script>
 
 <!-- Rest of the website -->
@@ -67,7 +68,7 @@ var s = document.createElement("script");
   <div class="w3-container w3-center" style="padding:0px">
     <table><tr>
       <td style="vertical-align:middle; text-align:left"><h4>Images generated in OMERO. </h4></td>
-      <td style="vertical-align:middle; text-align:right"><img src="{% static 'fpbioimage/FPBioimage/resources/fullscreen.png' %}" height="40px" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></td>
+      <td style="vertical-align:middle; text-align:right"><img src="{% static 'fpbioimage/resources/fullscreen.png' %}" height="40px" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></td>
     </tr></table>
   </div>
 
@@ -77,14 +78,14 @@ var s = document.createElement("script");
     <a href="http://laser.ceb.cam.ac.uk/directory/marcus-fantham" class="w3-text-teal">&copy; Marcus Fantham </a><br/>
     See the paper in <a href="https://www.nature.com/nphoton/journal/v11/n2/full/nphoton.2016.273.html" class="w3-text-teal">Nature Photonics</a>
   </p>
-  <img src="{% static 'fpbioimage/FPBioimage/resources/LAGlogo.png' %}" width="65%" alt="Laser Analytics Group"><img src="{% static 'fpbioimage/FPBioimage/resources/cambridgeLogo.png' %}" width="25%" alt="University of Cambridge">
+  <img src="{% static 'fpbioimage/resources/LAGlogo.png' %}" width="65%" alt="Laser Analytics Group"><img src="{% static 'fpbioimage/resources/cambridgeLogo.png' %}" width="25%" alt="University of Cambridge">
 </footer>
 </div>
 
 
 <!-- Load the FPBioimage viewer -->
 <div id="scriptLoader"> </div>
-<script src="{% static 'fpbioimage/FPBioimage/FPBioimageLoader.js' %}"></script>
-
+<script src="{% static 'fpbioimage/FPBioimage/FPLoader.js' %}"></script>
+<script src="{% static 'fpbioimage/FPBioimage/UnityLoader.js' %}"></script>
 </body>
 </html>
