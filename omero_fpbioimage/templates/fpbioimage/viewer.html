@@ -7,7 +7,7 @@
 
   <!-- EDIT THIS JAVASCRIPT! -->
   <script type='text/javascript'>
-    pathToImages = "{% url 'fpbioimage_index' %}imageStacks/{{ image.id }}"; // This is the path relative to the FPBioimage parent folder
+    pathToImages = "{% url 'fpbioimage_index' %}imageStacks/{{ image.id }}{% if region %}/{{ region }}{% endif %}"; // This is the path relative to the FPBioimage parent folder
     uniqueName = "fpbioimage_{{ image.id }}"; // Give this image stack a unique name for bookmarking to work correctly
     numberOfImages = {{ image.getSizeZ }};  // Number of images in the stack
     imagePrefix = "";  // The prefix of the image stack file names
@@ -67,9 +67,13 @@
   <!-- Full screen button -->
   <div class="w3-container w3-center" style="padding:0px">
     <table><tr>
-      <td style="vertical-align:middle; text-align:left"><h4>Images generated in OMERO. </h4></td>
+      <td style="vertical-align:middle; text-align:left">
+        <h4>Images generated in OMERO. </h4>
+        <button id="load_rois">Load Rectangle ROIs</button>
+      </td>
       <td style="vertical-align:middle; text-align:right"><img src="{% static 'fpbioimage/resources/fullscreen.png' %}" height="40px" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></td>
     </tr></table>
+    <table id="rois_table" style="width: 600px;"></table>
   </div>
 
 <!-- Footer -->
@@ -80,6 +84,37 @@
   </p>
   <img src="{% static 'fpbioimage/resources/LAGlogo.png' %}" width="65%" alt="Laser Analytics Group"><img src="{% static 'fpbioimage/resources/cambridgeLogo.png' %}" width="25%" alt="University of Cambridge">
 </footer>
+
+<script>
+
+  document.getElementById('load_rois').addEventListener('click', function(){
+    var xhr = new XMLHttpRequest();
+    var rois_url = "{% url 'api_image_rois' 0 image.id %}";
+    xhr.open('GET', rois_url, true);
+    xhr.onload = function() {
+      var responseText = xhr.responseText;
+      var jsonResponse = JSON.parse(responseText);
+      // go through ROIs, filtering shapes for Rectangle
+      var rois_with_rects = jsonResponse.data.filter(function(roi){
+        var rects = roi.shapes.filter(function(shape) {
+          return shape['@type'].endsWith('Rectangle');
+        });
+        return rects.length > 0;
+      });
+      // Show first Rectangle for each ROI
+      var base_url = document.location.href.split('?')[0];
+      var html = rois_with_rects.map(function(roi){
+        var r = roi.shapes[0];
+        var query = 'x=' + parseInt(r.X) + '&y=' + parseInt(r.Y) + '&width=' + parseInt(r.Width) + '&height=' + parseInt(r.Height);
+        var h = '<tr><td>ROI: ' + roi['@id'] + '</td><td>Shape: ' + r['@id'] + '</td>';
+        h += '<td>Load Region: <a href="' + base_url + '?' + query + '"/>x:' + r.X + ' y:' + r.Y + ' width:' + r.Width + ' height:' + r.Height + '</a></td></tr>';
+        return h;
+      });
+      document.getElementById('rois_table').innerHTML = html.join("");
+    }
+    xhr.send();
+  });
+</script>
 </div>
 
 </body>

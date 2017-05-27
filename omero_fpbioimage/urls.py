@@ -39,13 +39,6 @@ urlpatterns = patterns(
         name='fpbioimage_viewer'),
 
     # PNG plane. This is used for 'first_image'
-    url(r'^imageStacks/(?P<image_id>[0-9]+)/(?P<the_z>[0-9]+)\.png',
+    url(r'^imageStacks/(?P<image_id>[0-9]+)/(?:x:(?P<x>[0-9]+)y:(?P<y>[0-9]+)w:(?P<w>[0-9]+)h:(?P<h>[0-9]+)/)?(?P<the_z>[0-9]+)\.png',
         views.fpbioimage_png, name='fpbioimage_png'),
-
-    # PNG planes to load whole stack.
-    # Can't seem to control how this url is generated in JavaScript from
-    # the 'first_image' url above. So it's ugly but this works for now.
-    url(r'^viewer//fpbioimage/imageStacks/'
-        '(?P<image_id>[0-9]+)/(?P<the_z>[0-9]+)\.png',
-        views.fpbioimage_png, name='fpbioimage_png2'),
 )

@@ -41,29 +41,38 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
     """Load the viewer page for the image."""
     image = conn.getObject('Image', image_id)
     px = image.getPrimaryPixels().getPhysicalSizeX()
-    x = 1
-    y = 1
-    z = 1
+    pix_x = 1
+    pix_y = 1
+    pix_z = 1
 
     if px is not None:
         size = image.getPixelSizeX(True)
-        x = size.getValue()
+        pix_x = size.getValue()
 
     py = image.getPrimaryPixels().getPhysicalSizeY()
     if py is not None:
         size = image.getPixelSizeY(True)
-        y = size.getValue()
+        pix_y = size.getValue()
 
     pz = image.getPrimaryPixels().getPhysicalSizeZ()
     if pz is not None:
         size = image.getPixelSizeZ(True)
-        z = size.getValue()
+        pix_z = size.getValue()
 
     context = {'image': image,
-               'size_x': x,
-               'size_y': y,
-               'size_z': z
+               'size_x': pix_x,
+               'size_y': pix_y,
+               'size_z': pix_z
                }
+
+    x = request.GET.get('x')
+    y = request.GET.get('y')
+    w = request.GET.get('width')
+    h = request.GET.get('height')
+    if x is not None and y is not None and \
+        w is not None and h is not None:
+        context['region'] = 'x:%sy:%sw:%sh:%s' % (x, y, w, h)
+
     return render(request, 'fpbioimage/viewer.html', context)
 
 
@@ -71,10 +80,20 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
 def fpbioimage_png(request, image_id, the_z, conn=None, **kwargs):
     """Render png for image at specified Z section."""
     image = conn.getObject('image', image_id)
-    jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
+
+    x = kwargs.get('x')
+    if x is not None:
+        x = int(x)
+        y = int(kwargs.get('y'))
+        w = int(kwargs.get('w'))
+        h = int(kwargs.get('h'))
+
+        jpeg_data = image.renderJpegRegion(the_z, 0, x, y, w, h)
+    else:
+        jpeg_data = image.renderJpeg(the_z, 0)
     i = Image.open(StringIO(jpeg_data))
-    size_x = image.getSizeX()
-    size_y = image.getSizeY()
+    size_x = i.size[0]
+    size_y = i.size[1]
     def_w = 500
     def_h = 500
     width = def_w
