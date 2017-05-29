@@ -38,7 +38,10 @@ urlpatterns = patterns(
     url(r'^viewer/(?P<image_id>[0-9]+)/', views.fpbioimage,
         name='fpbioimage_viewer'),
 
-    # PNG plane. This is used for 'first_image'
-    url(r'^imageStacks/(?P<image_id>[0-9]+)/(?:x:(?P<x>[0-9]+)y:(?P<y>[0-9]+)w:(?P<w>[0-9]+)h:(?P<h>[0-9]+)/)?(?P<the_z>[0-9]+)\.png',
+    # PNG plane. This is used for 'first_image'.
+    # Can include /x:10y:20w:100h:200/ to specify region
+    url(r'^imageStacks/(?P<image_id>[0-9]+)/'
+        '(?:x:(?P<x>[0-9]+)y:(?P<y>[0-9]+)w:(?P<w>[0-9]+)h:(?P<h>[0-9]+)/)?'
+        '(?P<the_z>[0-9]+)\.png',
         views.fpbioimage_png, name='fpbioimage_png'),
 )

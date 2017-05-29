@@ -70,7 +70,7 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
     w = request.GET.get('width')
     h = request.GET.get('height')
     if x is not None and y is not None and \
-        w is not None and h is not None:
+            w is not None and h is not None:
         context['region'] = 'x:%sy:%sw:%sh:%s' % (x, y, w, h)
 
     return render(request, 'fpbioimage/viewer.html', context)
