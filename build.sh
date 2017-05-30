@@ -1,9 +1,8 @@
 #!/bin/bash
 
-TAG=v2.1.1
 DIR=__MACOSX
-echo "Retrieving FPBioimage"
-curl -o FPBioimage.zip -L https://github.com/fpBioImage/fpBioImage.github.io/releases/download/$TAG/FPBioimage.zip
+echo "Retrieving latest FPBioimage"
+curl -s -L https://github.com/fpBioImage/fpBioImage.github.io/releases/latest | egrep -o '/fpBioImage/fpBioImage.github.io/releases/download/[v]?[0-9.]*/FPBioimage.zip' | wget --base=http://github.com/ -i - -O FPBioimage.zip
 unzip -q FPBioimage.zip
 rm FPBioimage.zip
 # clean if we want to replace version
