@@ -23,6 +23,9 @@
 #
 
 import os
+import setuptools.command.install
+import setuptools.command.sdist
+from distutils.core import Command
 from setuptools import setup, find_packages
 from omero_fpbioimage.version import get_version
 
@@ -33,6 +36,45 @@ from omero_fpbioimage.version import get_version
 # string in below ...
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+cmdclass = {}
+
+class RunProd(Command):
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        if not os.path.isdir('omero_fpbioimage/static/fpbioimage/FPBioimage'):
+            os.system("bash build.sh")
+
+
+cmdclass['run_prod'] = RunProd
+
+
+class Sdist(setuptools.command.sdist.sdist):
+
+    def run(self):
+        if not os.path.isdir('omero_fpbioimage/static/fpbioimage/FPBioimage'):
+            self.run_command('run_prod')
+        setuptools.command.sdist.sdist.run(self)
+
+
+cmdclass['sdist'] = Sdist
+
+
+class Install(setuptools.command.install.install):
+
+    def run(self):
+        if not os.path.isdir('omero_fpbioimage/static/fpbioimage/FPBioimage'):
+            self.run_command('run_prod')
+        setuptools.command.install.install.run(self)
+
+
+cmdclass['install'] = Install
 
 
 version = get_version()
@@ -70,4 +112,5 @@ setup(name="omero-fpbioimage",
       keywords=['OMERO.web', 'plugin'],
       include_package_data=True,
       zip_safe=False,
+      cmdclass=cmdclass,
       )
