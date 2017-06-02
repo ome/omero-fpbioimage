@@ -23,20 +23,9 @@ This section assumes that an OMERO.web is already installed.
 
 Install the app using `pip <https://pip.pypa.io/en/stable/>`_:
 
-Not yet available:
-
 ::
 
-    $ pip install omero-fpbioimage
-
-
-But it is possible to install from the git repository:
-
-::
-
-    $ pip install -U git+git://github.com/ome/omero-fpbioimage.git@master#egg=fpbioimage
-
-
+    $ pip install -U omero-fpbioimage
 
 Add fpbioimage custom app to your installed web apps:
 
