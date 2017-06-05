@@ -3,3 +3,4 @@
 dist
 omero_fpbioimage.egg-info
 build/
+omero_fpbioimage/static/fpbioimage/FPBioimage/
