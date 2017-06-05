@@ -51,7 +51,7 @@ class RunProd(Command):
 
     def run(self):
         if not os.path.isdir('omero_fpbioimage/static/fpbioimage/FPBioimage'):
-            os.system("bash build.sh")
+            os.system("bash build.sh false")
 
 
 cmdclass['run_prod'] = RunProd
