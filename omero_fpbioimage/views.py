@@ -58,6 +58,8 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
     if pz is not None:
         size = image.getPixelSizeZ(True)
         z = size.getValue()
+    else:
+        z = min(x, y)
 
     context = {'image': image,
                'size_x': x,
