@@ -7,17 +7,20 @@
 
   <!-- EDIT THIS JAVASCRIPT! -->
   <script type='text/javascript'>
-    pathToImages = "{% url 'fpbioimage_index' %}imageStacks/{{ image.id }}"; // This is the path relative to the FPBioimage parent folder
-    uniqueName = "fpbioimage_{{ image.id }}"; // Give this image stack a unique name for bookmarking to work correctly
-    numberOfImages = {{ image.getSizeZ }};  // Number of images in the stack
-    imagePrefix = "";  // The prefix of the image stack file names
-    numberingFormat = "000";  // eg. "000" for 000, 001, 002, 003 etc.
-    voxelSize = [{{ size_x }}, {{ size_y }}, {{ size_z }}]; // This needs to be a ratio of x:y:z voxel size.
 
-    pathToFPBioimage = "{% static 'fpbioimage/FPBioimage' %}"; // The path to the FPBioimage folder from this webpage
+    var fpb = {
+      atlasMode: false,
+      pathToImages: "{% url 'fpbioimage_index' %}imageStacks/{{ image.id }}",// This is the path relative to the FPBioimage parent folder
+      uniqueName: "fpbioimage_{{ image.id }}",// Give this image stack a unique name for bookmarking to work correctly
+      numberOfImages: {{ image.getSizeZ }}, // Number of images in the stack
+      imagePrefix: "", // The prefix of the image stack file names
+      numberingFormat: "000", // eg. "000" for 000, 001, 002, 003 etc.
+      voxelSize: [{{ size_x }}, {{ size_y }}, {{ size_z }}],// This needs to be a ratio of x:y:z voxel size.
+      pathToFPBioimage: "https://fpb.ceb.cam.ac.uk/4",
 
-    // optional parameters
-    intensity = 1;
+      // optional parameters
+      intensit: 1,
+    }
   </script>
   <!-- END OF REQUIRED EDITS -->
 
@@ -86,7 +89,7 @@
   <script type="text/javascript">
     var s1 = document.createElement("script");
     s1.type = "text/javascript";
-    s1.src = pathToFPBioimage + "/FPProgress.js";
+    s1.src = fpb.pathToFPBioimage + "/FPProgress.js";
     s1.innerHTML = null;
     document.getElementById("jsHolder").innerHTML = "";
     document.getElementById("jsHolder").appendChild(s1);
