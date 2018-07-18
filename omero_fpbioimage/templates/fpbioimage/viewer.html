@@ -9,7 +9,7 @@
   <script type='text/javascript'>
 
     var fpb = {
-      atlasMode: 'false',
+      atlasMode: 'true',
       pathToImages: "{% url 'fpbioimage_index' %}imageStacks/{{ image.id }}",// This is the path relative to the FPBioimage parent folder
       uniqueName: "fpbioimage_{{ image.id }}",// Give this image stack a unique name for bookmarking to work correctly
       sliceWidth: {{ image.getSizeX }},

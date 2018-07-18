@@ -26,6 +26,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from omeroweb.webclient.decorators import login_required
 
+import numpy as np
+import math
 import PIL
 from PIL import Image
 from cStringIO import StringIO
@@ -67,35 +69,67 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
     return render(request, 'fpbioimage/viewer.html', context)
 
 
+def ceil2(x):
+    print "ceil", x, type(x)
+    # Round up to the next power of 2
+    return 1<<(x-1).bit_length()
+
+
 @login_required()
-def fpbioimage_png(request, image_id, the_z, conn=None, **kwargs):
+def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
     """Render png for image at specified Z section."""
     image = conn.getObject('image', image_id)
-    jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
-    i = Image.open(StringIO(jpeg_data))
-    size_x = image.getSizeX()
-    size_y = image.getSizeY()
-    def_w = 500
-    def_h = 500
-    width = def_w
-    height = def_h
-    resize = False
 
-    if size_x > def_w:
-        width = def_w
-        resize = True
-    if size_y > def_h:
-        height = def_h
-        resize = True
-    if resize:
-        r = float(size_x)/float(size_y)
-        if r < 1:
-            width = int(width*r)
-        else:
-            height = int(height/r)
-        i = i.resize((width, height), PIL.Image.ANTIALIAS)
+    # TODO: If > 512 * 512 need to scale down
+    sliceWidth = image.getSizeX()
+    sliceHeight = image.getSizeY()
+    numSlices = image.getSizeZ()
+
+    numberOfAtlases = 8 # Set for FPBioimage v4
+
+    # Calculate necessary variables
+    paddedSliceWidth = ceil2(sliceWidth)
+    paddedSliceHeight = ceil2(sliceHeight)
+
+    xOffset = math.floor((paddedSliceWidth-sliceWidth)/2)
+    yOffset = math.floor((paddedSliceHeight-sliceHeight)/2)
+
+    slicesPerAtlas = math.ceil(numSlices/numberOfAtlases)
+    atlasWidth = ceil2(paddedSliceWidth)
+    atlasHeight = ceil2(int(paddedSliceHeight * slicesPerAtlas))
+    while (atlasHeight > 2*atlasWidth) & (atlasHeight > sliceHeight):
+        atlasHeight /= 2
+        atlasWidth *= 2
+    atlasHeight = int(atlasHeight) # Cast back to int after division
+
+    # Create the atlas
+    atlas = Image.new("RGBA", (atlasWidth, atlasHeight), (0, 0, 0, 0))
+
+    # Arrange slices into atlas
+    slicesPerRow = math.floor(atlasWidth/paddedSliceWidth)
+
+    atlas_index = int(atlas_index)
+
+    # Go through Z-stack, picking planes we want for the requested atlas
+    for the_z in range(0, numSlices):
+        atlasNumber = the_z % numberOfAtlases
+        if atlasNumber != atlas_index:
+            continue
+        # Calculate position of plane in atlas
+        locationIndex = math.floor(the_z/numberOfAtlases)
+        xStartPixel = int((locationIndex % slicesPerRow) * paddedSliceWidth + xOffset)
+        yStartPixel = math.floor(locationIndex / slicesPerRow) * paddedSliceHeight + yOffset
+        yStartPixel = int(atlasHeight - yStartPixel - paddedSliceHeight + 2*yOffset)
+
+        # Render plane and paste onto atlas
+        jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
+        plane = Image.open(StringIO(jpeg_data))
+        atlas.paste(plane, (xStartPixel, yStartPixel))
+
+    image._re.close()
+
     output = StringIO()
-    i.save(output, 'png')
+    atlas.save(output, 'png')
     png_data = output.getvalue()
     output.close()
     return HttpResponse(png_data, content_type='image/png')
