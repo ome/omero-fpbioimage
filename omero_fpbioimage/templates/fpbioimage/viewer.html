@@ -21,6 +21,7 @@
       fileType: "png",
       // optional parameters
       intensity: 1.0,
+      pathToFPBioimage: "{% static 'fpbioimage/FPBioimage' %}" // The path to the FPBioimage folder from this webpage
     }
   </script>
   <!-- END OF REQUIRED EDITS -->
@@ -85,7 +86,7 @@
     </p>
   </footer>
 
-  <script src="https://fpb.ceb.cam.ac.uk/4/FPProgress.js" type="text/javascript"></script>
+  <script src="{% static 'fpbioimage/FPBioimage/FPProgress.js' %}" type="text/javascript"></script>
 
 </body>
 </html>

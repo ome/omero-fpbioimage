@@ -127,7 +127,8 @@ def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
         plane = Image.open(StringIO(jpeg_data))
         atlas.paste(plane, (x_start_pixel, y_start_pixel))
 
-    image._re.close()
+    if image._re:
+        image._re.close()
 
     output = StringIO()
     atlas.save(output, 'png')
