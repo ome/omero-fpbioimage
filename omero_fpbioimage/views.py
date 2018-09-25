@@ -126,7 +126,8 @@ def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
         plane = Image.open(StringIO(jpeg_data))
         atlas.paste(plane, (x_start_pixel, y_start_pixel))
 
-    if image._re:
+    # in case there weren't any planes for current atlas_index (small sizeZ)
+    if image._re is not None:
         image._re.close()
 
     output = StringIO()
