@@ -68,7 +68,6 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
 
 
 def ceil2(x):
-    print "ceil", x, type(x)
     # Round up to the next power of 2
     return 1 << (x - 1).bit_length()
 
