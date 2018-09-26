@@ -10,11 +10,11 @@
 
     var fpb = {
       atlasMode: 'true',
-      pathToImages: "{% url 'fpbioimage_index' %}imageStacks/{{ image.id }}",// This is the path relative to the FPBioimage parent folder
+      pathToImages: "{% url 'fpbioimage_index' %}imageStacks/{{ image_id }}",// This is the path relative to the FPBioimage parent folder
       uniqueName: "fpbioimage_{{ image.id }}",// Give this image stack a unique name for bookmarking to work correctly
-      sliceWidth: {{ image.getSizeX }},
-      sliceHeight: {{ image.getSizeY }},
-      numberOfImages: {{ image.getSizeZ }}, // Number of images in the stack
+      sliceWidth: {{ slice_width }},
+      sliceHeight: {{ slice_height }},
+      numberOfImages: {{ slice_count }}, // Number of images in the stack
       imagePrefix: "", // The prefix of the image stack file names
       numberingFormat: "000", // eg. "000" for 000, 001, 002, 003 etc.
       voxelSize: {x: {{ size_x }}, y: {{ size_y }}, z:{{ size_z }}},// This needs to be a ratio of x:y:z voxel size.

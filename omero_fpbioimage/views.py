@@ -44,6 +44,7 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
     x = 1
     y = 1
     z = 1
+    scale = 1.0
 
     if px is not None:
         size = image.getPixelSizeX(True)
@@ -59,10 +60,25 @@ def fpbioimage(request, image_id, conn=None, **kwargs):
         size = image.getPixelSizeZ(True)
         z = size.getValue()
 
-    context = {'image': image,
-               'size_x': x,
-               'size_y': y,
-               'size_z': z
+    slice_width = image.getSizeX()
+    slice_height = image.getSizeY()
+
+    # If > 512 * 512 need to scale down
+    MAX_SIZE = 512
+    if slice_width > MAX_SIZE or slice_height > MAX_SIZE:
+        longest_side = max(slice_width, slice_height)
+        slice_width = (slice_width * MAX_SIZE) / longest_side
+        slice_height = (slice_height * MAX_SIZE) / longest_side
+        scale = float(MAX_SIZE) / longest_side
+
+    context = {'image_name': image.getName(),
+               'image_id': image.id,
+               'slice_width': slice_width,
+               'slice_height': slice_height,
+               'slice_count': image.getSizeZ(),
+               'size_x': x * scale,
+               'size_y': y * scale,
+               'size_z': z * scale
                }
     return render(request, 'fpbioimage/viewer.html', context)
 
@@ -77,9 +93,16 @@ def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
     """Render png for image at specified Z section."""
     image = conn.getObject('image', image_id)
 
-    # TODO: If > 512 * 512 need to scale down
     slice_width = image.getSizeX()
     slice_height = image.getSizeY()
+
+    # If > 512 * 512 need to scale down
+    MAX_SIZE = 512
+    if slice_width > MAX_SIZE or slice_height > MAX_SIZE:
+        longest_side = max(slice_width, slice_height)
+        slice_width = (slice_width * MAX_SIZE) / longest_side
+        slice_height = (slice_height * MAX_SIZE) / longest_side
+
     num_slices = image.getSizeZ()
 
     # Set for FPBioimage v4
@@ -124,6 +147,9 @@ def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
         # Render plane and paste onto atlas
         jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
         plane = Image.open(StringIO(jpeg_data))
+        if plane.size[0] > slice_width:
+            plane = plane.resize((slice_width, slice_height), Image.BICUBIC)
+            print plane.size
         atlas.paste(plane, (x_start_pixel, y_start_pixel))
 
     # in case there weren't any planes for current atlas_index (small sizeZ)
