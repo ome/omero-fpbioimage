@@ -149,7 +149,6 @@ def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
         plane = Image.open(StringIO(jpeg_data))
         if plane.size[0] > slice_width:
             plane = plane.resize((slice_width, slice_height), Image.BICUBIC)
-            print plane.size
         atlas.paste(plane, (x_start_pixel, y_start_pixel))
 
     # in case there weren't any planes for current atlas_index (small sizeZ)
