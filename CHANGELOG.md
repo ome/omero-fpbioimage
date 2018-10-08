@@ -1,5 +1,5 @@
-0.3.0 (TBD)
------------
+0.3.0 (October 2018)
+--------------------
 
 - Updated to Version 4 of FPBioimage from [2018-08-10](https://github.com/fpBioImage/fpBioImage.github.io/commit/f0b4e312b85771f47bbe21e2bf6cb25b82b0f600) for batch loading of image planes in an "atlas".
 

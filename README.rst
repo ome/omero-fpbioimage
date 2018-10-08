@@ -54,4 +54,4 @@ Photonics <https://www.nature.com/nphoton/journal/v11/n2/full/nphoton.2016.273.h
 Copyright
 ---------
 
-2017, The Open Microscopy Environment
+2017-2018, The Open Microscopy Environment
