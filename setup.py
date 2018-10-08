@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 #
-# Copyright (c) 2017 University of Dundee.
+# Copyright (c) 2017-2018 University of Dundee.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -22,61 +22,22 @@
 # Version: 1.0
 #
 
+"""setup.py for pip installing omero-fpbioimage."""
+
 import os
-import setuptools.command.install
-import setuptools.command.sdist
-from distutils.core import Command
 from setuptools import setup, find_packages
 from omero_fpbioimage.version import get_version
 
 
-# Utility function to read the README file.
-# Used for the long_description.  It's nice, because now 1) we have a top level
-# README file and 2) it's easier to type in the README file than to put a raw
-# string in below ...
 def read(fname):
+    """
+    Utility function to read the README file.
+
+    Used for the long_description.  It's nice, because:
+    1) now we have a top level README file
+    2) it's easier to type in the README file than to put a raw string in below
+    """
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
-
-cmdclass = {}
-
-
-class RunProd(Command):
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        if not os.path.isdir('omero_fpbioimage/static/fpbioimage/FPBioimage'):
-            os.system("bash build.sh")
-
-
-cmdclass['run_prod'] = RunProd
-
-
-class Sdist(setuptools.command.sdist.sdist):
-
-    def run(self):
-        if not os.path.isdir('omero_fpbioimage/static/fpbioimage/FPBioimage'):
-            self.run_command('run_prod')
-        setuptools.command.sdist.sdist.run(self)
-
-
-cmdclass['sdist'] = Sdist
-
-
-class Install(setuptools.command.install.install):
-
-    def run(self):
-        if not os.path.isdir('omero_fpbioimage/static/fpbioimage/FPBioimage'):
-            self.run_command('run_prod')
-        setuptools.command.install.install.run(self)
-
-
-cmdclass['install'] = Install
 
 
 version = get_version()
@@ -114,5 +75,4 @@ setup(name="omero-fpbioimage",
       keywords=['OMERO.web', 'plugin'],
       include_package_data=True,
       zip_safe=False,
-      cmdclass=cmdclass,
       )
