@@ -19,7 +19,7 @@
 # Version: 1.0
 #
 
-from utils import get_version
+from .utils import get_version
 
 
 VERSION = (0, 3, 0)

@@ -28,7 +28,7 @@ from omeroweb.webclient.decorators import login_required
 
 import math
 from PIL import Image
-from cStringIO import StringIO
+from io import BytesIO
 
 
 def index(request):
@@ -146,7 +146,7 @@ def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
 
         # Render plane and paste onto atlas
         jpeg_data = image.renderJpeg(the_z, 0, compression=0.9)
-        plane = Image.open(StringIO(jpeg_data))
+        plane = Image.open(BytesIO(jpeg_data))
         if plane.size[0] > slice_width:
             plane = plane.resize((slice_width, slice_height), Image.BICUBIC)
         atlas.paste(plane, (x_start_pixel, y_start_pixel))
@@ -155,7 +155,7 @@ def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
     if image._re is not None:
         image._re.close()
 
-    output = StringIO()
+    output = BytesIO()
     atlas.save(output, 'png')
     png_data = output.getvalue()
     output.close()
