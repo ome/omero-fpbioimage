@@ -22,14 +22,12 @@
 # Version: 1.0
 #
 
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
 from . import views
 
 
-urlpatterns = patterns(
-
-    'django.views.generic.simple',
+urlpatterns = [
 
     # index placeholder
     url(r'^$', views.index, name='fpbioimage_index'),
@@ -48,4 +46,4 @@ urlpatterns = patterns(
     url(r'^viewer//fpbioimage/imageStacks/'
         '(?P<image_id>[0-9]+)/(?P<atlas_index>[0-9]+)\.png',
         views.fpbioimage_png, name='fpbioimage_png2'),
-)
+]
