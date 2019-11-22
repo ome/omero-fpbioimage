@@ -22,7 +22,7 @@
 from .utils import get_version
 
 
-VERSION = (0, 4, 0, "dev1")
+VERSION = (0, 4, 0, "dev2")
 
 
 __version__ = get_version(VERSION)
