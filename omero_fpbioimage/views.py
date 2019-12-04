@@ -100,8 +100,8 @@ def fpbioimage_png(request, image_id, atlas_index, conn=None, **kwargs):
     max_size = 512
     if slice_width > max_size or slice_height > max_size:
         longest_side = max(slice_width, slice_height)
-        slice_width = (slice_width * max_size) / longest_side
-        slice_height = (slice_height * max_size) / longest_side
+        slice_width = (slice_width * max_size) // longest_side
+        slice_height = (slice_height * max_size) // longest_side
 
     num_slices = image.getSizeZ()
 
