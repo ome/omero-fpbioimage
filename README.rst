@@ -13,7 +13,7 @@ FPBioimage as an OMERO.web app.
 Requirements
 ============
 
-* OMERO 5.2.6 or newer.
+* OMERO.web 5.6 or newer.
 
 Installing from PyPI
 ====================
@@ -54,4 +54,4 @@ Photonics <https://www.nature.com/nphoton/journal/v11/n2/full/nphoton.2016.273.h
 Copyright
 ---------
 
-2017-2018, The Open Microscopy Environment
+2017-2020, The Open Microscopy Environment
