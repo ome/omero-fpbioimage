@@ -73,7 +73,7 @@ setup(name="omero-fpbioimage",
       url="https://github.com/ome/omero-fpbioimage",
       download_url='https://github.com/ome/omero-fpbioimage/archive/v%s.tar.gz' % version,  # NOQA
       keywords=['OMERO.web', 'plugin'],
-      install_requires=['omero-web>=5.6.dev7'],
+      install_requires=['omero-web>=5.6.0'],
       python_requires='>=3',
       include_package_data=True,
       zip_safe=False,
