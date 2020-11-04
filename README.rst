@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/ome/omero-fpbioimage.svg?branch=master
-    :target: https://travis-ci.org/ome/omero-fpbioimage
+.. image:: https://github.com/ome/omero-fpbioimage/workflows/OMERO/badge.svg
+    :target: https://github.com/ome/omero-fpbioimage/actions
 
 .. image:: https://badge.fury.io/py/omero-fpbioimage.svg
     :target: https://badge.fury.io/py/omero-fpbioimage
