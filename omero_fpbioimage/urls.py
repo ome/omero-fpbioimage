@@ -34,16 +34,16 @@ urlpatterns = [
 
     # Viewer page
     re_path(r'^viewer/(?P<image_id>[0-9]+)/', views.fpbioimage,
-        name='fpbioimage_viewer'),
+            name='fpbioimage_viewer'),
 
     # PNG plane. This is used for 'first_image'
     re_path(r'^imageStacks/(?P<image_id>[0-9]+)/(?P<atlas_index>[0-9]+)\.png',
-        views.fpbioimage_png, name='fpbioimage_png'),
+            views.fpbioimage_png, name='fpbioimage_png'),
 
     # PNG planes to load whole stack.
     # Can't seem to control how this url is generated in JavaScript from
     # the 'first_image' url above. So it's ugly but this works for now.
     re_path(r'^viewer//fpbioimage/imageStacks/'
-        '(?P<image_id>[0-9]+)/(?P<atlas_index>[0-9]+)\.png',
-        views.fpbioimage_png, name='fpbioimage_png2'),
+            '(?P<image_id>[0-9]+)/(?P<atlas_index>[0-9]+)\.png',
+            views.fpbioimage_png, name='fpbioimage_png2'),
 ]
