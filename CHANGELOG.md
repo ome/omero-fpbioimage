@@ -1,3 +1,9 @@
+0.4.1 (June 2023)
+-----------------
+
+- Make app compatible with Django 4.0.x [#29](https://github.com/ome/omero-fpbioimage/pull/29)
+
+
 0.4.dev2 (November 2019)
 ------------------------
 
