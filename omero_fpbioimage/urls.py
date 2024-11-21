@@ -43,7 +43,6 @@ urlpatterns = [
     # PNG planes to load whole stack.
     # Can't seem to control how this url is generated in JavaScript from
     # the 'first_image' url above. So it's ugly but this works for now.
-    re_path(r'^viewer//fpbioimage/imageStacks/'
-            '(?P<image_id>[0-9]+)/(?P<atlas_index>[0-9]+)\.png',
+    re_path(r'^viewer//fpbioimage/imageStacks/(?P<image_id>[0-9]+)/(?P<atlas_index>[0-9]+)\.png',  # noqa
             views.fpbioimage_png, name='fpbioimage_png2'),
 ]
